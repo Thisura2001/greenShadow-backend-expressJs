@@ -12,3 +12,106 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Crop {
+  cropId         Int @id @default(autoincrement())
+  commonName     String
+  scientificName String
+  cropImg        String @db.LongText
+  category       String
+  season         String
+
+  @@map("Crops")
+}
+
+model Field {
+  fieldId   Int @id @default(autoincrement())
+  fieldName String
+  location  String
+  extend    String
+  fieldImg1 String @db.LongText
+  fieldImg2 String @db.LongText
+
+  @@map("Fields")
+}
+
+model Equipment {
+  eqId          Int        @id @default(autoincrement())
+  name          String
+  equipmentType EquipmentType
+  status        Status
+
+  @@map("Equipment")
+}
+
+enum EquipmentType {
+  ELECTRICAL
+  MECHANICAL
+}
+
+enum Status {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+model Staff {
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  designation Designation
+  gender      Gender
+  joinedDate  String      @map("joined_date")
+  dob         String
+  address     String
+  contactNo   String      @map("contact_no")
+  email       String      @unique
+  role        Role
+
+  @@map("Staff")
+}
+
+enum Designation {
+  MANAGER
+  ADMINISTRATIVE
+  SCIENTIST
+  FIELD_WORKER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Role {
+  MANAGER
+  ADMIN
+  SCIENTIST
+}
+
+model Vehicle {
+  vehicleCode        Int @id @map("vehicle_code") @default(autoincrement())
+  licensePlateNumber String
+  vehicleCategory    String
+  fuelType           String
+  status             Status
+
+  @@map("Vehicle")
+}
+
+model User {
+  userId   Int @id @map("user_id") @default(autoincrement())
+  email    String @unique
+  password String
+  role     Role
+
+  @@map("User")
+}
+
+model Log {
+  id            Int @id @default(autoincrement())
+  logDate       String @map("log_date")
+  logDetails    String @map("log_details")
+  observedImage String @db.LongText
+
+  @@map("Logs")
+}
