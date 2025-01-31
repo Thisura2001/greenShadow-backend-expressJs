@@ -37,7 +37,7 @@ model Equipment {
 
 model Field {
   fieldId   Int         @id @default(autoincrement()) @map("fieldId")
-  fieldName String
+  fieldName String      @unique
   location  String
   extend    String
   fieldImg1 String?     @db.LongText
