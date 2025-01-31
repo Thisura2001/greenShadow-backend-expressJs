@@ -38,7 +38,7 @@ export async function deleteField(fieldId:number){
 export  async function UpdateField(fieldId:number,field:Field){
     try {
         const updateField = await prisma.field.update({
-            where:{fieldId:field.fieldId},
+            where:{fieldId:fieldId},
             data:{
                 fieldName: field.fieldName,
                 location: field.location,
