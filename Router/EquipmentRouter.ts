@@ -52,7 +52,7 @@ router.get('/',async (req, res, next) => {
         console.log("error getting equipment ", err)
     }
 })
-router.get('/:eqId',async (req, res, next) => {
+router.get('/get/:eqId',async (req, res, next) => {
     const eqId: number = parseInt(req.params.eqId)
     try {
         const equipment = await getEquipmentById(eqId);
