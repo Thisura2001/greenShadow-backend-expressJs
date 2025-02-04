@@ -27,11 +27,11 @@ export async function addVehicle(v:Vehicle){
         console.log("Error adding vehicle ",err);
     }
 }
-export async function deleteVehicle(eqId:number){
+export async function deleteVehicle(vehicle_code:number){
     try {
         const deleteVehicle = await prisma.vehicle.delete({
             where:{
-                vehicle_code:eqId
+                vehicle_code:vehicle_code
             }
         })
         console.log("Vehicle deleted ",deleteVehicle);
@@ -40,11 +40,11 @@ export async function deleteVehicle(eqId:number){
         console.log("Error deleting vehicle ",err);
     }
 }
-export async function updateVehicle(eqId:number,v:Vehicle){
+export async function updateVehicle(vehicle_code:number,v:Vehicle){
     try {
         const updateVehicle = await prisma.vehicle.update({
             where:{
-                vehicle_code:eqId
+                vehicle_code:vehicle_code
             },
             data:{
                 licensePlateNumber:v.licensePlateNumber,
@@ -67,11 +67,11 @@ export async function getAllVehicles(){
         console.log("Error getting vehicles ",err);
     }
 }
-export async function getVehicleById(eqId:number){
+export async function getVehicleById(vehicle_code:number){
     try {
         return await prisma.vehicle.findUnique({
             where:{
-                vehicle_code:eqId
+                vehicle_code:vehicle_code
             }
         })
     }catch (err){

@@ -11,8 +11,8 @@ router.get('/', async (req, res, next) => {
        console.log("error getting vehicles ", err)
    }
 })
-router.get('/get/:eqId', async (req, res, next) => {
-    const eqId: number = parseInt(req.params.eqId)
+router.get('/get/:vehicle_code', async (req, res, next) => {
+    const eqId: number = parseInt(req.params.vehicle_code)
     try {
         const vehicle = await getVehicleById(eqId)
         res.json(vehicle)
@@ -33,10 +33,10 @@ router.post('/add', async (req, res, next) => {
     }
 });
 
-router.put('/update/:eqId', async (req, res, next) => {
+router.put('/update/:vehicle_code', async (req, res, next) => {
     console.log(req.body)
     const vehicle =req.body
-    const eqId:number = parseInt(req.params.eqId)
+    const eqId:number = parseInt(req.params.vehicle_code)
     try {
         const update = await updateVehicle(eqId,vehicle)
         res.json(update)
@@ -45,10 +45,10 @@ router.put('/update/:eqId', async (req, res, next) => {
         res.status(400).send("Error updating vehicle");
     }
 });
-router.delete('/delete/:eqId', async (req, res, next) => {
-    const eqId: number = parseInt(req.params.eqId)
+router.delete('/delete/:vehicle_code', async (req, res, next) => {
+    const vehicle_code: number = parseInt(req.params.vehicle_code)
     try {
-        const deleteV = await deleteVehicle(eqId)
+        const deleteV = await deleteVehicle(vehicle_code)
         res.json(deleteV);
     } catch (err) {
         console.log("Error deleting vehicle ", err);

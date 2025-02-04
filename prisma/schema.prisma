@@ -76,7 +76,7 @@ model User {
 }
 
 model Vehicle {
-  vehicle_code       Int    @id @default(autoincrement())
+  vehicle_code       Int    @id @unique @default(autoincrement())
   licensePlateNumber String
   vehicleCategory    String
   fuelType           String
