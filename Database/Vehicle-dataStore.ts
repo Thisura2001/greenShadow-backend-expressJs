@@ -44,7 +44,7 @@ export async function updateVehicle(vehicle_code:number,v:Vehicle){
     try {
         const updateVehicle = await prisma.vehicle.update({
             where:{
-                vehicle_code:vehicle_code
+                vehicle_code:v.vehicle_code
             },
             data:{
                 licensePlateNumber:v.licensePlateNumber,
