@@ -22,6 +22,7 @@ export async function saveField(field:Field){
 }
 
 export async function deleteField(fieldId:number){
+    console.log("field id is ",fieldId)
     try {
         const deleteField = await prisma.field.delete({
             where:{
