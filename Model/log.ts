@@ -1,6 +1,6 @@
 export default class Log{
     id!:number;
     log_date!:string;
-    log_details!:string;
     observationImg!:string;
+    log_details!:string;
 }

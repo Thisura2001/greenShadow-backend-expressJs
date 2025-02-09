@@ -2,36 +2,19 @@ import {PrismaClient} from "@prisma/client";
 import Log from "../Model/log";
 
 const prisma = new PrismaClient();
-
-import fs from 'fs';
-
 export async function addLog(log: Log) {
     try {
-        let base64Image = log.observationImg;
-
-        // Check if observationImg is a file path and convert to Base64
-        if (fs.existsSync(log.observationImg)) {
-            const imageBuffer = fs.readFileSync(log.observationImg);
-            base64Image = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`;
-        }
-
-        // Ensure it is a valid Base64 string
-        if (!base64Image.startsWith('data:image')) {
-            throw new Error('Invalid Base64 image format');
-        }
-
         const newLog = await prisma.log.create({
-            data: {
-                log_date: log.log_date,
-                log_details: log.log_details,
-                observed_image: base64Image, // Store Base64 string
-            },
-        });
-
-        console.log('Log added:', newLog);
+            data:{
+                log_date:log.log_date,
+                observed_image:log.observationImg,
+                log_details:log.log_details,
+            }
+        })
+        console.log("Log added ",newLog);
         return newLog;
-    } catch (err) {
-        console.error('Error adding log:', err);
+    }catch (err){
+        console.log("Error adding log ",err);
     }
 }
 

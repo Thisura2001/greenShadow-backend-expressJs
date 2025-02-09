@@ -49,8 +49,8 @@ model Field {
 model Log {
   id             Int    @id @default(autoincrement())
   log_date       String
-  log_details    String
   observed_image String @db.LongText
+  log_details    String
 }
 
 model Staff {
