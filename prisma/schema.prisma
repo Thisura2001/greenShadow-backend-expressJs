@@ -44,6 +44,7 @@ model Field {
   fieldImg2 String?     @db.LongText
   crops     Crop[]
   equipment Equipment[]
+  Staff     Staff[]
 }
 
 model Log {
@@ -54,18 +55,20 @@ model Log {
 }
 
 model Staff {
-  id          Int         @id @default(autoincrement())
-  firstName   String
-  designation Designation
-  gender      Gender
-  joined_date String
-  dob         String
-  address     String
-  contact_no  String
-  email       String      @unique
-  role        Role
-  vehicles    Vehicle[]
-  Equipment   Equipment[]
+  id           Int         @id @default(autoincrement())
+  firstName    String
+  designation  Designation
+  gender       Gender
+  joined_date  String
+  dob          String
+  address      String
+  contact_no   String
+  email        String      @unique
+  role         Role
+  vehicles     Vehicle[]
+  Equipment    Equipment[]
+  Field        Field?      @relation(fields: [fieldFieldId], references: [fieldId])
+  fieldFieldId Int?
 }
 
 model User {

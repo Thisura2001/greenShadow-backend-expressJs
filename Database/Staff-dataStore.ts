@@ -48,6 +48,7 @@ export async function deleteStaff(id:number){
 }
 
 export  async function UpdateStaff(id:number,staff:Staff){
+    console.log("Staff list: ",staff)
     try {
         const updateStaff = await prisma.staff.update({
             where:{id:id},
