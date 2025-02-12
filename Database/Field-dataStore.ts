@@ -1,5 +1,4 @@
-import {PrismaClient} from "@prisma/client";
-import Field from "../Model/Field";
+import {PrismaClient,Field} from "@prisma/client";
 
 const prisma = new PrismaClient();
 

@@ -1,5 +1,4 @@
-import {PrismaClient} from "@prisma/client";
-import Log from "../Model/log";
+import {PrismaClient,Log} from "@prisma/client";
 
 const prisma = new PrismaClient();
 export async function addLog(log: Log) {
@@ -7,7 +6,7 @@ export async function addLog(log: Log) {
         const newLog = await prisma.log.create({
             data:{
                 log_date:log.log_date,
-                observed_image:log.observationImg,
+                observed_image:log.observed_image,
                 log_details:log.log_details,
             }
         })
@@ -41,7 +40,7 @@ export async function updateLog(id:number,log:Log){
             data:{
                 log_date:log.log_date,
                 log_details:log.log_details,
-                observed_image:log.observationImg
+                observed_image:log.observed_image
             }
         })
         console.log("Log updated ",updateLog)

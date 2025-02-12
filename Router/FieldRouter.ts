@@ -1,6 +1,7 @@
 import express from "express";
 import {deleteField, getAllFields, getFieldById, saveField, UpdateField} from "../Database/Field-dataStore";
-import Field from "../Model/Field";
+import {Field} from "@prisma/client";
+
 
  const router = express.Router();
 
