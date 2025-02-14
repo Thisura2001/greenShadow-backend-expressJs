@@ -16,7 +16,7 @@ export async function createUser(user: { password: string; email: string; role: 
     console.log("User created:", addedUser);
 }
 
-export async function verifyUserCredentials(verifyUser: { password: string; email: string; role: Role }) {
+export async function verifyUserCredentials(verifyUser: { password: any; email: any }) {
     const user : User | null = await prisma.user.findUnique({
         where: { email: verifyUser.email },
     });
