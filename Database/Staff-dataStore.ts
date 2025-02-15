@@ -3,6 +3,9 @@ import {PrismaClient,Staff} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function addStaff(staff:Staff){
+    if (!staff.firstName || !staff.designation || !staff.gender || !staff.joined_date || !staff.dob || !staff.address || !staff.contact_no || !staff.email || !staff.role) {
+        throw new Error("you must provide all the fields");
+    }
     try {
         const newStaff =await prisma.staff.create({
             data: {
@@ -33,6 +36,9 @@ export async function getStaff(){
 }
 
 export async function deleteStaff(id:number){
+    if (!id) {
+        throw new Error("you must provide id");
+    }
     try {
         const deleteStaff = await prisma.staff.delete({
             where:{
@@ -47,6 +53,9 @@ export async function deleteStaff(id:number){
 }
 
 export  async function UpdateStaff(id:number,staff:Staff){
+    if (!id || !staff) {
+        throw new Error("you must provide id and staff");
+    }
     console.log("Staff list: ",staff)
     try {
         const updateStaff = await prisma.staff.update({
@@ -70,6 +79,9 @@ export  async function UpdateStaff(id:number,staff:Staff){
     }
 }
 export async function getStaffById(id:number){
+    if (!id) {
+        throw new Error("you must provide id");
+    }
     try {
         return await prisma.staff.findUnique({
             where:{

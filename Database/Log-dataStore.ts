@@ -2,6 +2,9 @@ import {PrismaClient,Log} from "@prisma/client";
 
 const prisma = new PrismaClient();
 export async function addLog(log: Log) {
+    if (!log.log_date || !log.observed_image || !log.log_details) {
+        throw new Error("you must provide all the fields");
+    }
     try {
         const newLog = await prisma.log.create({
             data:{
@@ -18,6 +21,9 @@ export async function addLog(log: Log) {
 }
 
 export async function deleteLog(id:number){
+    if (!id) {
+        throw new Error("you must provide id");
+    }
     try {
         const deleteLog = await prisma.log.delete({
             where:{
@@ -32,6 +38,9 @@ export async function deleteLog(id:number){
 }
 
 export async function updateLog(id:number,log:Log){
+    if (!id || !log) {
+        throw new Error("you must provide id and log");
+    }
     try {
         const updateLog = await prisma.log.update({
             where:{
@@ -59,6 +68,9 @@ export async function getAllLogs(){
 }
 
 export async function getLogById(id:number){
+    if (!id) {
+        throw new Error("you must provide id");
+    }
     try {
         return await prisma.log.findUnique({
             where:{

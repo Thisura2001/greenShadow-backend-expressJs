@@ -3,6 +3,9 @@ import {Equipment, PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function addEquipment(eq:Equipment){
+    if (!eq.name || !eq.equipmentType || !eq.status || !eq.staffId || !eq.fieldId) {
+        throw new Error("you must provide all the fields");
+    }
     try {
         if (eq.fieldId){
             const fieldExists = await prisma.field.findUnique({
@@ -36,6 +39,9 @@ export async function addEquipment(eq:Equipment){
     }
 }
 export async function updateEquipment(eqId:number,eq:Equipment){
+    if (!eqId || !eq) {
+        throw new Error("you must provide eqId and equipment");
+    }
     try {
         const equipment = await prisma.equipment.update({
             where: { eqId: eqId },
@@ -54,6 +60,9 @@ export async function updateEquipment(eqId:number,eq:Equipment){
     }
 }
 export async function deleteEquipment(eqId:number){
+    if (!eqId) {
+        throw new Error("you must provide eqId");
+    }
     try {
         const equipment = await prisma.equipment.delete({
             where: { eqId: eqId }
@@ -72,6 +81,9 @@ export async function getAllEquipment(){
     }
 }
 export async function getEquipmentById(eqId:number){
+    if (!eqId) {
+        throw new Error("you must provide eqId");
+    }
     try {
         return await prisma.equipment.findUnique({
             where: { eqId: eqId }

@@ -3,8 +3,10 @@ import {Crop, PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function addCrop(crop: Crop) {
+    if (!crop.commonName || !crop.scientificName || !crop.category || !crop.season || !crop.cropImg || !crop.fieldId) {
+        throw new Error("you must provide all the fields");
+    }
     try {
-        // Check if the field exists before connecting
         if (crop.fieldId) {
             const fieldExists = await prisma.field.findUnique({
                 where: { fieldId: crop.fieldId }
@@ -34,6 +36,9 @@ export async function addCrop(crop: Crop) {
 }
 
 export async function deleteCrop(cropId:number){
+    if (!cropId) {
+        throw new Error("you must provide cropId");
+    }
     try {
         const deleteCrop = await prisma.crop.delete({
             where:{
@@ -47,6 +52,9 @@ export async function deleteCrop(cropId:number){
     }
 }
 export async function updateCrop(cropId:number,crop:Crop){
+    if (!cropId || !crop) {
+        throw new Error("you must provide cropId and crop");
+    }
     try {
         const updateCrop = await prisma.crop.update({
             where:{
@@ -75,6 +83,9 @@ export async function getAllCrops(){
     }
 }
 export async function getCropById(cropId:number){
+    if (!cropId) {
+        throw new Error("you must provide cropId");
+    }
     try {
         const getCrop = await prisma.crop.findUnique({
             where:{

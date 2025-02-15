@@ -3,6 +3,9 @@ import {PrismaClient, Vehicle} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function addVehicle(v:Vehicle){
+    if (!v.licensePlateNumber || !v.vehicleCategory || !v.fuelType || !v.status || !v.staffId) {
+        throw new Error("you must provide all the fields");
+    }
     try {
         if (v.staffId){
             const staffExists = await prisma.staff.findUnique({
@@ -28,6 +31,9 @@ export async function addVehicle(v:Vehicle){
     }
 }
 export async function deleteVehicle(vehicle_code:number){
+    if (!vehicle_code) {
+        throw new Error("you must provide vehicle_code");
+    }
     try {
         const deleteVehicle = await prisma.vehicle.delete({
             where:{
@@ -41,6 +47,9 @@ export async function deleteVehicle(vehicle_code:number){
     }
 }
 export async function updateVehicle(vehicle_code:number,v:Vehicle){
+    if (!vehicle_code || !v) {
+        throw new Error("you must provide vehicle_code and vehicle");
+    }
     try {
         const updateVehicle = await prisma.vehicle.update({
             where:{
@@ -68,6 +77,9 @@ export async function getAllVehicles(){
     }
 }
 export async function getVehicleById(vehicle_code:number){
+    if (!vehicle_code) {
+        throw new Error("you must provide vehicle_code");
+    }
     try {
         return await prisma.vehicle.findUnique({
             where:{

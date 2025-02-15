@@ -3,6 +3,9 @@ import {PrismaClient,Field} from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function saveField(field:Field){
+    if (!field.fieldName || !field.location || !field.extend || !field.fieldImg1 || !field.fieldImg2) {
+        throw new Error("you must provide all the fields");
+    }
     try {
         const newField =await prisma.field.create({
             data: {
@@ -21,6 +24,9 @@ export async function saveField(field:Field){
 }
 
 export async function deleteField(fieldId:number){
+    if (!fieldId) {
+        throw new Error("you must provide fieldId");
+    }
     console.log("field id is ",fieldId)
     try {
         const deleteField = await prisma.field.delete({
@@ -36,6 +42,9 @@ export async function deleteField(fieldId:number){
 }
 
 export  async function UpdateField(fieldId:number,field:Field){
+    if (!fieldId || !field) {
+        throw new Error("you must provide fieldId and field");
+    }
     try {
         const updateField = await prisma.field.update({
             where:{fieldId:fieldId},
@@ -63,6 +72,9 @@ export async function getAllFields(){
 }
 
 export async function getFieldById(fieldId:number){
+    if (!fieldId) {
+        throw new Error("you must provide fieldId");
+    }
     try {
         const getField = await prisma.field.findUnique({
             where:{fieldId:fieldId}
