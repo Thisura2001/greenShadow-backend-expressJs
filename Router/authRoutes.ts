@@ -9,28 +9,27 @@ dotenv.config();
 const router = express.Router();
 
 router.post("/login", async (req, res) => {
-    console.log('Login')
+    console.log('Login');
     const email = req.body.user.email;
     const password = req.body.user.password;
 
-    const user = {email, password};
+    const user = { email, password };
 
-    try{
-        const isVerified =  await verifyUserCredentials(user);
+    try {
+        const isVerified = await verifyUserCredentials(user);
 
-        if(isVerified){
-            const token = jwt.sign({ email }, process.env.SECRET_KEY as Secret, {expiresIn: "1m"});
-            const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN as Secret, {expiresIn: "1m"});
-            res.json({accessToken : token, refreshToken : refreshToken});
-        }else{
-            res.sendStatus(403).send('Invalid credentials')
+        if (isVerified) {
+            const token = jwt.sign({ email }, process.env.SECRET_KEY as Secret, { expiresIn: "1m" });
+            const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN as Secret, { expiresIn: "1m" });
+            res.json({ accessToken: token, refreshToken: refreshToken });
+        } else {
+            res.status(403).send('Invalid credentials');
         }
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        res.status(400).send(err);
+        res.status(400).send("An error occurred");
     }
-
-})
+});
 
 router.post("/register", async (req, res) => {
     console.log('Register', req.body);
