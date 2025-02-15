@@ -20,7 +20,7 @@ router.post("/login", async (req, res) => {
 
         if (isVerified) {
             const token = jwt.sign({ email }, process.env.SECRET_KEY as Secret, { expiresIn: "1m" });
-            const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN as Secret, { expiresIn: "1m" });
+            const refreshToken = jwt.sign({ email }, process.env.REFRESH_TOKEN as Secret, { expiresIn: "7d" });
             res.json({ accessToken: token, refreshToken: refreshToken });
         } else {
             res.status(403).send('Invalid credentials');
