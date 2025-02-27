@@ -40,7 +40,7 @@ export async function deleteCrop(cropId:number){
         throw new Error("you must provide cropId");
     }
     try {
-        const deleteCrop = await prisma.crop.delete({
+        const deleteCrop = await prisma.crop.delete ({
             where:{
                 cropId:cropId
             }

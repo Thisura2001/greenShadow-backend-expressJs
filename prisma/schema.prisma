@@ -33,6 +33,7 @@ model Equipment {
   staff         Staff?        @relation(fields: [staffId], references: [id])
   fieldId       Int?
   field         Field?        @relation(fields: [fieldId], references: [fieldId])
+  isDeleted     Boolean       @default(false)
 }
 
 model Field {

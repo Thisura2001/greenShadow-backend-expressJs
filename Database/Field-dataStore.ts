@@ -23,21 +23,33 @@ export async function saveField(field:Field){
     }
 }
 
-export async function deleteField(fieldId:number){
+export async function deleteField(fieldId: number) {
     if (!fieldId) {
-        throw new Error("you must provide fieldId");
+        throw new Error("You must provide a fieldId");
     }
-    console.log("field id is ",fieldId)
+
+    console.log("Field ID is", fieldId);
+
     try {
-        const deleteField = await prisma.field.delete({
-            where:{
-                fieldId:fieldId
+        // Delete associated crops first
+        await prisma.crop.deleteMany({
+            where: {
+                fieldId: fieldId
             }
-        })
-        console.log("Field Deleted ",deleteField)
-        return deleteField
-    }catch (e){
-        console.log(e)
+        });
+
+        // Now delete the field
+        const deletedField = await prisma.field.delete({
+            where: {
+                fieldId: fieldId
+            }
+        });
+
+        console.log("Field Deleted", deletedField);
+        return deletedField;
+    } catch (e) {
+        console.error("Error deleting field:", e);
+        throw new Error("Failed to delete field. Make sure it has no dependent records.");
     }
 }
 
